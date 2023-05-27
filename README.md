@@ -47,6 +47,10 @@ Como resultado se plantean un total de 3600 experimentos, estos fueron repartido
 | Número de threads empleados | Número de threads empleados en el nodo trabajador | 1,2,4,8,10,12,14,16,18,20 |
 | Métodos | Métodos de ejecución | MPI, OpenMP |
 
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/174b98f7-3891-4cfc-9e12-f79bd2872bd9)
+
+
+
 ### Algoritmos
 #### MM1F
 
