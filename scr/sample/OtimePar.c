@@ -1,0 +1,108 @@
+# include <stdio.h>
+# include <stdlib.h>
+# include <omp.h>
+# include <string.h>
+# include <errno.h>
+# include <sys/time.h>
+# include <sched.h>
+
+# define CPU_SETSIZE __CPU_SETSIZE
+# define CPU_SET(cpu, cpusetp)	 __CPU_SET_S (cpu, sizeof (cpu_set_t), cpusetp)
+# define CPU_CLR(cpu, cpusetp)	 __CPU_CLR_S (cpu, sizeof (cpu_set_t), cpusetp)
+# define CPU_ISSET(cpu, cpusetp) __CPU_ISSET_S (cpu, sizeof (cpu_set_t), \
+						cpusetp)
+# define CPU_ZERO(cpusetp)	 __CPU_ZERO_S (sizeof (cpu_set_t), cpusetp)
+
+
+# define MAX_THREADS 16
+
+struct timeval start[MAX_THREADS];
+struct timeval stop [MAX_THREADS];
+struct timeval total[MAX_THREADS];
+
+static int N_THREADS, Mode;
+
+void setCPU(int cpu) {
+  cpu_set_t mask;
+  CPU_ZERO(&mask);
+
+  CPU_SET(cpu, &mask);
+  if (sched_setaffinity( 0, sizeof(cpu_set_t), &mask) != 0)
+    printf("Error: %d - %s", errno , strerror(errno));
+}
+
+
+void Sample_ON(int THR) {
+  gettimeofday(start + THR, (void * )0);
+}
+
+void Sample_ON_Barrier(int THR) {
+#pragma omp barrier
+  gettimeofday(start + THR, (void * )0);
+}
+
+void Sample_OFF(int THR) {
+  gettimeofday(&(stop[THR]), (void * )0);
+  stop[THR].tv_usec -= start[THR].tv_usec;
+  if (stop[THR].tv_usec < 0) {
+    stop[THR].tv_usec += 1000000;
+    stop[THR].tv_sec--;
+  }
+  total[THR].tv_usec += stop[THR].tv_usec;
+  if (total[THR].tv_usec >= 1000000) {
+    total[THR].tv_usec -= 1000000;
+    total[THR].tv_sec ++;
+  }
+  total[THR].tv_sec += (stop[THR].tv_sec - start[THR].tv_sec);
+}
+
+
+void Sample_Init(int argc, char *argv[]) {
+  int i;
+
+  if (argc != 4) {
+    printf("Sample parameters: NumberThreads AllocationMode\n");
+    exit(1);
+  }
+
+  N_THREADS = (int) atof(argv[1]);
+  Mode      = (int) atof(argv[2]);
+
+  if (!N_THREADS || N_THREADS > MAX_THREADS) {
+    printf("Number of Threads is not valid\n");
+    exit(1);
+  }
+
+  for (i=0; i<N_THREADS; i++) {
+    total[i].tv_usec = 0;   total[i].tv_sec = 0;
+  }
+
+  omp_set_num_threads (N_THREADS);
+}
+
+int Sample_PAR_install()
+{
+  int THR;
+
+  THR = omp_get_thread_num();
+  if (Mode != -1) {
+    if (!Mode)
+      setCPU(THR);
+    else
+      setCPU((Mode >> (3*THR)) & 7);
+  }
+
+  return THR;
+}
+
+void Sample_End()
+{
+  int THR, i;
+  double d;
+
+  for (THR=0; THR < N_THREADS; THR++) {
+    d= (double)(total[THR].tv_sec) * 1000000.0 +
+       (double) total[THR].tv_usec;
+    printf("%1.0f-: %9.0f\n", (double) THR, d);
+  }
+}
