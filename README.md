@@ -10,8 +10,8 @@ La multiplicación de matrices es una operación fundamental en muchas aplicacio
 * [Autores](#autores)
 * [Objetivo](#objetivo)
 * [Recursos](#recursos)
-* [Descripción de la solución](#descripción-de-la-solución)
-* [Analisis de resultados](#descripción-de-la-solución)
+* [Descripción de la solución](#descripcion-de-la-solucion)
+* [Analisis de resultados](#analisis-de-resultados)
 
 ## Autores
 A continuación se presenta el listado de autores y su respectivo correo electronico.
@@ -29,6 +29,8 @@ Analizar el impacto de la paralelización de los algoritmos, evaluando el rendim
 
 ## Recursos 
 Todo el experimento se llevó a cabo en una sola maquina con las siguientes especificaciones 
+
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/6b47b867-21d9-405e-98c0-608d55c9bfdb)
 
 ## Descripción de la solución
 
@@ -48,14 +50,20 @@ Como resultado se plantean un total de 3600 experimentos, estos fueron repartido
 ### Algoritmos
 #### MM1F
 
-Añadir imagen 
+Nos centraremos en los siguientes fragmentos que son los que cambian entre los diferentes códigos. Tomamos como línea de base el MM1f en donde vemos que las matrices se multiplican por la iteración respectiva de los valores uno por uno en el loop que recorre las matrices y agrega los datos que encuentra en valores intermedios, luego en otro loop los agrega en una variable S, y por último reemplaza el valor S de esa operación en la ubicación correspondiente en la matriz de resultados. Por supuesto esto se hace para todas las operaciones necesarias en la iteración.  
+
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/e1495328-41b8-43fa-a540-aa2f3167f35c)
+
 
 #### MM1FU
 
-Añadir imagen 
+En esta operación nos encontramos con una estructura similar a la anterior, la diferencia que notamos es que en lugar de hacerlo un dato a la vez hace la operación con cuatro valores continuos, si estamos en lo correcto, esto permitiría acceder de manera más sencilla a la memoria disponible dentro del procesador, pues es más probable que los valores contiguos estén ya preparados para usar. 
+
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/df655b29-aa63-44f3-ad89-25849ab69184)
+
 #### MM2F
 
-Añadir imagen 
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/b4ab14c2-bb25-42a7-8c77-91403b070845)
 
 ### Métodos de ejecución
 #### MPI
