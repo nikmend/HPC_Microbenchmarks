@@ -34,7 +34,7 @@ Todo el experimento se llevó a cabo en una sola maquina con las siguientes espe
 
 ### Diseño experimental
 
-Se realizaron un total de 240 experimentos en los que se probaron algoritmos de multiplicación de matrices variando los siguientes parametros:
+Se realizaron un total de 3600 experimentos en los que se probaron algoritmos de multiplicación de matrices variando los siguientes parametros:
 
 | Parametro   | Descripción | Niveles | 
 |----------|-------------|-------------|
