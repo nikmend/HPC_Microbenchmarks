@@ -96,7 +96,10 @@ Por medio de la prueba Shapiro, se encontró indicios de normalidad en los resid
 
 ## Conclusiones
 
-Durante este ejercicio nos dimos cuenta de varias cosas. Primero, que es posible hacer un proceso idéntico en entradas y resultados, pero con estrategias más o menos eficientes en términos de tiempo de ejecución y recursos. Segundo, que las estrategias pueden ahorrar de maneras prácticamente exponenciales los tiempos de ejecución en la máquina, y muy asociado a esto, la energía que se utiliza el costo del desarrollo. Tercero, que es importante incluir en las estrategias metodologías como el paso de mensajes para escalar la producción y los tiempos de ejecución en caso de ser requerida, pero que esto puede conllevar costos en hardware y en la comunicación de las maquinas. 
+1.	Nuestro análisis revela que las estrategias implementadas pueden lograr ahorros significativos en el tiempo de ejecución de manera prácticamente exponencial en la máquina sobre todo con Open MP. Además, estos ahorros están estrechamente asociados con la reducción de energía utilizada y los costos de desarrollo asociados.
+2.	Open MP se destaca como una opción preferible a MPI para ejecutar un microbenchmark en una sola máquina, debido a su menor sobrecarga de comunicación y sincronización, lo que resulta en un mejor rendimiento y tiempos de ejecución más rápidos en entornos de una sola máquina.
+3.	En conclusión, el análisis de dispersión de los tiempos de ejecución en los boxplots, reveló que todos los cuantiles de tiempo de ejecución para el modelo MM2f fueron consistentemente más bajos en comparación con los otros métodos evaluados. Esto indica una mayor eficiencia y rendimiento del modelo MM2f en la multiplicación de matrices, lo que lo posiciona como la opción preferida para obtener resultados más rápidos en esta tarea específica.
+
 
 
 
