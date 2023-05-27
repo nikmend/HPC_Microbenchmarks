@@ -34,7 +34,9 @@ Todo el experimento se llevó a cabo en una sola maquina con las siguientes espe
 
 ### Diseño experimental
 
-Se realizaron un total de 3600 experimentos en los que se probaron algoritmos de multiplicación de matrices variando los siguientes parametros:
+Para el estudio del benchmarking de los procesos OpenMP Y MPI, se realizarán análisis de anovas, como forma de contrastar influencias de las variables seleccionadas, dado que son demasiados niveles y deben ser evaluados al tiempo. No se optó por un diseño experimental de cuadro latino o 2^n. Se toman por muestra por nivel de 30 repeticiones, esto se hace con la finalidad de poder hacer un análisis por regresión y tener una cantidad de puntos deseables para revisar supuestos de normalidad.  
+
+Como resultado se plantean un total de 3600 experimentos, estos fueron repartidos de la siguiente manera: 
 
 | Parametro   | Descripción | Niveles | 
 |----------|-------------|-------------|
