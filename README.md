@@ -12,6 +12,7 @@ La multiplicación de matrices es una operación fundamental en muchas aplicacio
 * [Recursos](#recursos)
 * [Descripción de la solución](#descripcion-de-la-solucion)
 * [Analisis de resultados](#analisis-de-resultados)
+* [Conclusiones](#conclusiones)
 
 ## Autores
 A continuación se presenta el listado de autores y su respectivo correo electronico.
@@ -49,8 +50,6 @@ Como resultado se plantean un total de 3600 experimentos, estos fueron repartido
 
 ![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/174b98f7-3891-4cfc-9e12-f79bd2872bd9)
 
-
-
 ### Algoritmos
 #### MM1F
 
@@ -69,15 +68,35 @@ En esta operación nos encontramos con una estructura similar a la anterior, la 
 
 ![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/b4ab14c2-bb25-42a7-8c77-91403b070845)
 
-### Métodos de ejecución
-#### MPI
-#### OpenMP
-
 ## Analisis de resultados
 
+Al comparar los resultados de las matrices se evidencia que usando un tamaño 8.000, el tiempo utilizado tiene una relación exponencial con los hilos usados, haciendo esta una relación exponencial. Muestra que en un punto el proceso no tendrá mayor eficiencia a medida que se usen más hilos, dado que encontrará una asíntota en el rendimiento. 
+
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/b29d99c6-6e74-4e77-851d-942e09231b73)
 
 
+Al linealizar los datos con logaritmo con la finalidad de poder graficar todos los hilos y los métodos, se encuentra que para matrices mayores a 2.000; la matriz MM2f es las más eficiente seguido de la MM1FU. Esto nos muestra que efectivamente el procesamiento entregándole la ubicación de memoria a buscar agiliza el proceso, al igual que la estrategia de pasar cada iteración del proceso con varios datos como mencionamos anteriormente. 
 
+
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/a0b2d190-2388-4506-b7e0-613f12d92078)
+
+Al comparar estos resultados por medio del diagrama de caja y bigotes, evidenciamos que el método MM2f es el más eficiente, siempre y cuando los tamaños de las matrices sean mayores a 1000. 
+
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/fcee83af-7726-4d6c-a3c6-b9897ac11776)
+
+Posterior a los análisis encontrados por medio de los análisis descriptivos, se buscaba encontrar por cada método una regresión, para explicar los resultados encontrados. 
+
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/0c9d6f57-acfa-4854-9b37-f87a01689787)
+
+
+Por medio de la prueba Shapiro, se encontró indicios de normalidad en los residuales de los errores, por lo que la regresión es apta para el análisis. 
+
+![imagen](https://github.com/jpined93/HPC_Microbenchmarks/assets/101982334/a88dab33-ef48-405b-b6ee-1f08abd39c7b)
+
+
+## Conclusiones
+
+Durante este ejercicio nos dimos cuenta de varias cosas. Primero, que es posible hacer un proceso idéntico en entradas y resultados, pero con estrategias más o menos eficientes en términos de tiempo de ejecución y recursos. Segundo, que las estrategias pueden ahorrar de maneras prácticamente exponenciales los tiempos de ejecución en la máquina, y muy asociado a esto, la energía que se utiliza el costo del desarrollo. Tercero, que es importante incluir en las estrategias metodologías como el paso de mensajes para escalar la producción y los tiempos de ejecución en caso de ser requerida, pero que esto puede conllevar costos en hardware y en la comunicación de las maquinas. 
 
 
 
